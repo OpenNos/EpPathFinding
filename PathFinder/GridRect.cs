@@ -1,4 +1,4 @@
-/*! 
+/*!
 @file GridRect.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/eppathfinding.cs>
@@ -35,13 +35,8 @@ THE SOFTWARE.
 An Interface for the GridRect Struct.
 
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
-namespace EpPathFinding.cs
+namespace EpPathFinding
 {
     public class GridRect
     {
@@ -49,6 +44,7 @@ namespace EpPathFinding.cs
         public int minY;
         public int maxX;
         public int maxY;
+
         public GridRect()
         {
             minX = 0;
@@ -56,6 +52,7 @@ namespace EpPathFinding.cs
             maxX = 0;
             maxY = 0;
         }
+
         public GridRect(int iMinX, int iMinY, int iMaxX, int iMaxY)
         {
             minX = iMinX;

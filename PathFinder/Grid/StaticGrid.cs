@@ -1,4 +1,4 @@
-﻿/*! 
+﻿/*!
 @file StaticGrid.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/eppathfinding.cs>
@@ -35,13 +35,8 @@ THE SOFTWARE.
 An Interface for the StaticGrid Class.
 
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
-namespace EpPathFinding.cs
+namespace EpPathFinding
 {
     public class StaticGrid : BaseGrid
     {
@@ -51,13 +46,13 @@ namespace EpPathFinding.cs
 
         private Node[][] m_nodes;
 
-        public StaticGrid(int iWidth, int iHeight, bool[][] iMatrix = null):base()
+        public StaticGrid(int iWidth, int iHeight, bool[][] iMatrix = null) : base()
         {
             width = iWidth;
             height = iHeight;
             m_gridRect.minX = 0;
             m_gridRect.minY = 0;
-            m_gridRect.maxX = iWidth-1;
+            m_gridRect.maxX = iWidth - 1;
             m_gridRect.maxY = iHeight - 1;
             this.m_nodes = buildNodes(iWidth, iHeight, iMatrix);
         }
@@ -71,7 +66,7 @@ namespace EpPathFinding.cs
                 tMatrix[widthTrav] = new bool[b.height];
                 for (int heightTrav = 0; heightTrav < b.height; heightTrav++)
                 {
-                    if(b.IsWalkableAt(widthTrav,heightTrav))
+                    if (b.IsWalkableAt(widthTrav, heightTrav))
                         tMatrix[widthTrav][heightTrav] = true;
                     else
                         tMatrix[widthTrav][heightTrav] = false;
@@ -79,10 +74,9 @@ namespace EpPathFinding.cs
             }
             this.m_nodes = buildNodes(b.width, b.height, tMatrix);
         }
-       
+
         private Node[][] buildNodes(int iWidth, int iHeight, bool[][] iMatrix)
         {
-
             Node[][] tNodes = new Node[iWidth][];
             for (int widthTrav = 0; widthTrav < iWidth; widthTrav++)
             {
@@ -102,7 +96,6 @@ namespace EpPathFinding.cs
             {
                 throw new System.Exception("Matrix size does not fit");
             }
-
 
             for (int widthTrav = 0; widthTrav < iWidth; widthTrav++)
             {
@@ -224,6 +217,4 @@ namespace EpPathFinding.cs
             return tNewGrid;
         }
     }
-
-
 }

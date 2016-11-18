@@ -1,4 +1,4 @@
-﻿/*! 
+﻿/*!
 @file DynamicGrid.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/eppathfinding.cs>
@@ -35,20 +35,15 @@ THE SOFTWARE.
 An Interface for the DynamicGrid Class.
 
 */
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
-
-namespace EpPathFinding.cs
+namespace EpPathFinding
 {
     public class DynamicGrid : BaseGrid
     {
         protected Dictionary<GridPos, Node> m_nodes;
         private bool m_notSet;
-
 
         public override int width
         {
@@ -60,7 +55,6 @@ namespace EpPathFinding.cs
             }
             protected set
             {
-
             }
         }
 
@@ -74,7 +68,6 @@ namespace EpPathFinding.cs
             }
             protected set
             {
-
             }
         }
 
@@ -99,7 +92,6 @@ namespace EpPathFinding.cs
 
         protected void buildNodes(List<GridPos> iWalkableGridList)
         {
-
             m_nodes = new Dictionary<GridPos, Node>();
             if (iWalkableGridList == null)
                 return;
@@ -108,7 +100,6 @@ namespace EpPathFinding.cs
                 SetWalkableAt(gridPos.x, gridPos.y, true);
             }
         }
-
 
         public override Node GetNodeAt(int iX, int iY)
         {
@@ -148,7 +139,7 @@ namespace EpPathFinding.cs
             {
                 if (m_nodes.ContainsKey(pos))
                 {
-                   // this.m_nodes[pos].walkable = iWalkable;
+                    // this.m_nodes[pos].walkable = iWalkable;
                     return true;
                 }
                 else
@@ -203,7 +194,6 @@ namespace EpPathFinding.cs
 
         public void Reset(List<GridPos> iWalkableGridList)
         {
-
             foreach (KeyValuePair<GridPos, Node> keyValue in m_nodes)
             {
                 keyValue.Value.Reset();
@@ -227,11 +217,9 @@ namespace EpPathFinding.cs
             foreach (KeyValuePair<GridPos, Node> keyValue in m_nodes)
             {
                 tNewGrid.SetWalkableAt(keyValue.Key.x, keyValue.Key.y, true);
-
             }
 
             return tNewGrid;
         }
     }
-
 }

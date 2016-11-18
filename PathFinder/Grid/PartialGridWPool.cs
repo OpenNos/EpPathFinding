@@ -1,4 +1,4 @@
-/*! 
+/*!
 @file PartialGridWPool.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/eppathfinding.cs>
@@ -35,13 +35,10 @@ THE SOFTWARE.
 An Interface for the PartialGrid with Pool Class.
 
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
-namespace EpPathFinding.cs
+using System.Collections.Generic;
+
+namespace EpPathFinding
 {
     public class PartialGridWPool : BaseGrid
     {
@@ -55,7 +52,6 @@ namespace EpPathFinding.cs
             }
             protected set
             {
-
             }
         }
 
@@ -67,10 +63,8 @@ namespace EpPathFinding.cs
             }
             protected set
             {
-
             }
         }
-
 
         public PartialGridWPool(NodePool iNodePool, GridRect iGridRect = null)
             : base()
@@ -87,12 +81,11 @@ namespace EpPathFinding.cs
         {
             m_nodePool = b.m_nodePool;
         }
-       
+
         public void SetGridRect(GridRect iGridRect)
         {
             m_gridRect = iGridRect;
         }
-
 
         public bool IsInside(int iX, int iY)
         {
@@ -115,7 +108,7 @@ namespace EpPathFinding.cs
 
         public override bool SetWalkableAt(int iX, int iY, bool iWalkable)
         {
-            if (!IsInside(iX,iY))
+            if (!IsInside(iX, iY))
                 return false;
             GridPos pos = new GridPos(iX, iY);
             m_nodePool.SetNode(pos, iWalkable);
@@ -148,7 +141,7 @@ namespace EpPathFinding.cs
 
         public override void Reset()
         {
-            int rectCount=(m_gridRect.maxX-m_gridRect.minX) * (m_gridRect.maxY-m_gridRect.minY);
+            int rectCount = (m_gridRect.maxX - m_gridRect.minX) * (m_gridRect.maxY - m_gridRect.minY);
             if (m_nodePool.Nodes.Count > rectCount)
             {
                 GridPos travPos = new GridPos(0, 0);
@@ -158,8 +151,8 @@ namespace EpPathFinding.cs
                     for (int yTrav = m_gridRect.minY; yTrav <= m_gridRect.maxY; yTrav++)
                     {
                         travPos.y = yTrav;
-                        Node curNode=m_nodePool.GetNode(travPos);
-                        if (curNode!=null)
+                        Node curNode = m_nodePool.GetNode(travPos);
+                        if (curNode != null)
                             curNode.Reset();
                     }
                 }
@@ -173,12 +166,10 @@ namespace EpPathFinding.cs
             }
         }
 
-
         public override BaseGrid Clone()
         {
-            PartialGridWPool tNewGrid = new PartialGridWPool(m_nodePool,m_gridRect);
+            PartialGridWPool tNewGrid = new PartialGridWPool(m_nodePool, m_gridRect);
             return tNewGrid;
         }
     }
-
 }

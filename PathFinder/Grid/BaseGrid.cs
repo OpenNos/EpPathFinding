@@ -1,4 +1,4 @@
-﻿/*! 
+﻿/*!
 @file BaseGrid.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/eppathfinding.cs>
@@ -35,13 +35,11 @@ THE SOFTWARE.
 An Interface for the BaseGrid Class.
 
 */
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
-namespace EpPathFinding.cs
+namespace EpPathFinding
 {
     public class Node : IComparable
     {
@@ -66,7 +64,6 @@ namespace EpPathFinding.cs
             this.isOpened = false;
             this.isClosed = false;
             this.parent = null;
-
         }
 
         public Node(Node b)
@@ -94,11 +91,10 @@ namespace EpPathFinding.cs
             this.parent = null;
         }
 
-
         public int CompareTo(object iObj)
         {
             Node tOtherNode = (Node)iObj;
-            float result=this.heuristicStartToEndLen - tOtherNode.heuristicStartToEndLen;
+            float result = this.heuristicStartToEndLen - tOtherNode.heuristicStartToEndLen;
             if (result > 0.0f)
                 return -1;
             else if (result == 0.0f)
@@ -118,7 +114,6 @@ namespace EpPathFinding.cs
             path.Reverse();
             return path;
         }
-
 
         public override int GetHashCode()
         {
@@ -178,12 +173,10 @@ namespace EpPathFinding.cs
         {
             return !(a == b);
         }
-
     }
 
     public abstract class BaseGrid
     {
-
         public BaseGrid()
         {
             m_gridRect = new GridRect();
@@ -197,6 +190,7 @@ namespace EpPathFinding.cs
         }
 
         protected GridRect m_gridRect;
+
         public GridRect gridRect
         {
             get { return m_gridRect; }
@@ -293,6 +287,5 @@ namespace EpPathFinding.cs
         public abstract void Reset();
 
         public abstract BaseGrid Clone();
-
     }
 }

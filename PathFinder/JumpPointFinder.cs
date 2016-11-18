@@ -1,4 +1,4 @@
-﻿/*! 
+﻿/*!
 @file JumpPointFinder.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/eppathfinding.cs>
@@ -35,20 +35,16 @@ THE SOFTWARE.
 An Interface for the Jump Point Search Algorithm Class.
 
 */
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
-namespace EpPathFinding.cs
+namespace EpPathFinding
 {
-
     public delegate float HeuristicDelegate(int iDx, int iDy);
 
     public class JumpPointParam
     {
-
         public JumpPointParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, bool iAllowEndNodeUnWalkable = true, bool iCrossCorner = true, bool iCrossAdjacentPoint = true, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
         {
             switch (iMode)
@@ -56,12 +52,15 @@ namespace EpPathFinding.cs
                 case HeuristicMode.MANHATTAN:
                     m_heuristic = new HeuristicDelegate(Heuristic.Manhattan);
                     break;
+
                 case HeuristicMode.EUCLIDEAN:
                     m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
                     break;
+
                 case HeuristicMode.CHEBYSHEV:
                     m_heuristic = new HeuristicDelegate(Heuristic.Chebyshev);
                     break;
+
                 default:
                     m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
                     break;
@@ -81,19 +80,22 @@ namespace EpPathFinding.cs
             m_useRecursive = false;
         }
 
-        public JumpPointParam(BaseGrid iGrid, bool iAllowEndNodeUnWalkable = true, bool iCrossCorner = true, bool iCrossAdjacentPoint=true, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
+        public JumpPointParam(BaseGrid iGrid, bool iAllowEndNodeUnWalkable = true, bool iCrossCorner = true, bool iCrossAdjacentPoint = true, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
         {
             switch (iMode)
             {
                 case HeuristicMode.MANHATTAN:
                     m_heuristic = new HeuristicDelegate(Heuristic.Manhattan);
                     break;
+
                 case HeuristicMode.EUCLIDEAN:
                     m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
                     break;
+
                 case HeuristicMode.CHEBYSHEV:
                     m_heuristic = new HeuristicDelegate(Heuristic.Chebyshev);
                     break;
+
                 default:
                     m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
                     break;
@@ -133,12 +135,15 @@ namespace EpPathFinding.cs
                 case HeuristicMode.MANHATTAN:
                     m_heuristic = new HeuristicDelegate(Heuristic.Manhattan);
                     break;
+
                 case HeuristicMode.EUCLIDEAN:
                     m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
                     break;
+
                 case HeuristicMode.CHEBYSHEV:
                     m_heuristic = new HeuristicDelegate(Heuristic.Chebyshev);
                     break;
+
                 default:
                     m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
                     break;
@@ -160,8 +165,6 @@ namespace EpPathFinding.cs
                 m_startNode = new Node(iStartPos.x, iStartPos.y, true);
             if (m_endNode == null)
                 m_endNode = new Node(iEndPos.x, iEndPos.y, true);
-
-
         }
 
         public bool CrossAdjacentPoint
@@ -223,6 +226,7 @@ namespace EpPathFinding.cs
                 return m_startNode;
             }
         }
+
         public Node EndNode
         {
             get
@@ -242,6 +246,7 @@ namespace EpPathFinding.cs
                 m_useRecursive = value;
             }
         }
+
         protected HeuristicDelegate m_heuristic;
         protected bool m_crossAdjacentPoint;
         protected bool m_crossCorner;
@@ -255,6 +260,7 @@ namespace EpPathFinding.cs
 
         public List<Node> openList;
     }
+
     public class JumpPointFinder
     {
         public static List<GridPos> GetFullPath(List<GridPos> routeFound)
@@ -298,9 +304,9 @@ namespace EpPathFinding.cs
             }
             return consecutiveGridList;
         }
+
         public static List<GridPos> FindPath(JumpPointParam iParam)
         {
-
             List<Node> tOpenList = iParam.openList;
             Node tStartNode = iParam.StartNode;
             Node tEndNode = iParam.EndNode;
@@ -326,7 +332,7 @@ namespace EpPathFinding.cs
             {
                 // pop the position of node which has the minimum `f` value.
                 tOpenList.Sort();
-                tNode = (Node)tOpenList[tOpenList.Count-1];
+                tNode = (Node)tOpenList[tOpenList.Count - 1];
                 tOpenList.RemoveAt(tOpenList.Count - 1);
                 tNode.isClosed = true;
 
@@ -365,7 +371,7 @@ namespace EpPathFinding.cs
             for (int i = 0; i < tNeighbors.Count; i++)
             {
                 tNeighbor = tNeighbors[i];
-                if(iParam.UseRecursive)
+                if (iParam.UseRecursive)
                     tJumpPoint = jump(iParam, tNeighbor.x, tNeighbor.y, iNode.x, iNode.y);
                 else
                     tJumpPoint = jumpLoop(iParam, tNeighbor.x, tNeighbor.y, iNode.x, iNode.y);
@@ -413,18 +419,18 @@ namespace EpPathFinding.cs
             public GridPos jx;
             public GridPos jy;
             public int stage;
+
             public JumpSnapshot()
             {
-            
-                iX=0;
-                iY=0;
-                iPx=0;
-                iPy=0;
-                tDx=0;
-                tDy=0;
-                jx=null;
-                jy=null;
-                stage=0;
+                iX = 0;
+                iY = 0;
+                iPx = 0;
+                iPy = 0;
+                tDx = 0;
+                tDy = 0;
+                jx = null;
+                jy = null;
+                stage = 0;
             }
         }
 
@@ -440,7 +446,7 @@ namespace EpPathFinding.cs
             currentSnapshot.iPx = iPx;
             currentSnapshot.iPy = iPy;
             currentSnapshot.stage = 0;
-            
+
             stack.Push(currentSnapshot);
             while (stack.Count != 0)
             {
@@ -472,7 +478,7 @@ namespace EpPathFinding.cs
                                 if ((iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - currentSnapshot.tDx, currentSnapshot.iY + currentSnapshot.tDy) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - currentSnapshot.tDx, currentSnapshot.iY)) ||
                                     (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY - currentSnapshot.tDy) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY - currentSnapshot.tDy)))
                                 {
-                                    retVal= new GridPos(currentSnapshot.iX, currentSnapshot.iY);
+                                    retVal = new GridPos(currentSnapshot.iX, currentSnapshot.iY);
                                     continue;
                                 }
                             }
@@ -480,12 +486,12 @@ namespace EpPathFinding.cs
                             else
                             {
                                 if (currentSnapshot.tDx != 0)
-                                { 
+                                {
                                     // moving along x
                                     if ((iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY + 1) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY + 1)) ||
                                         (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY - 1) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY - 1)))
                                     {
-                                        retVal= new GridPos(currentSnapshot.iX, currentSnapshot.iY);
+                                        retVal = new GridPos(currentSnapshot.iX, currentSnapshot.iY);
                                         continue;
                                     }
                                 }
@@ -494,7 +500,7 @@ namespace EpPathFinding.cs
                                     if ((iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + 1, currentSnapshot.iY + currentSnapshot.tDy) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + 1, currentSnapshot.iY)) ||
                                         (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - 1, currentSnapshot.iY + currentSnapshot.tDy) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - 1, currentSnapshot.iY)))
                                     {
-                                        retVal= new GridPos(currentSnapshot.iX, currentSnapshot.iY);
+                                        retVal = new GridPos(currentSnapshot.iX, currentSnapshot.iY);
                                         continue;
                                     }
                                 }
@@ -560,12 +566,12 @@ namespace EpPathFinding.cs
                             else
                             {
                                 if (currentSnapshot.tDx != 0)
-                                { 
+                                {
                                     // moving along x
                                     if ((iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY + 1) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - currentSnapshot.tDx, currentSnapshot.iY + 1)) ||
                                         (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY - 1) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - currentSnapshot.tDx, currentSnapshot.iY - 1)))
                                     {
-                                        retVal= new GridPos(currentSnapshot.iX, currentSnapshot.iY);
+                                        retVal = new GridPos(currentSnapshot.iX, currentSnapshot.iY);
                                         continue;
                                     }
                                 }
@@ -574,12 +580,11 @@ namespace EpPathFinding.cs
                                     if ((iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + 1, currentSnapshot.iY) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + 1, currentSnapshot.iY - currentSnapshot.tDy)) ||
                                         (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - 1, currentSnapshot.iY) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - 1, currentSnapshot.iY - currentSnapshot.tDy)))
                                     {
-                                        retVal= new GridPos(currentSnapshot.iX, currentSnapshot.iY);
+                                        retVal = new GridPos(currentSnapshot.iX, currentSnapshot.iY);
                                         continue;
                                     }
                                 }
                             }
-             
 
                             // when moving diagonally, must check for vertical/horizontal jump points
                             if (currentSnapshot.tDx != 0 && currentSnapshot.tDy != 0)
@@ -613,6 +618,7 @@ namespace EpPathFinding.cs
                         }
                         retVal = null;
                         break;
+
                     case 1:
                         currentSnapshot.jx = retVal;
 
@@ -627,6 +633,7 @@ namespace EpPathFinding.cs
                         newSnapshot.stage = 0;
                         stack.Push(newSnapshot);
                         break;
+
                     case 2:
                         currentSnapshot.jy = retVal;
                         if (currentSnapshot.jx != null || currentSnapshot.jy != null)
@@ -661,6 +668,7 @@ namespace EpPathFinding.cs
                         }
                         retVal = null;
                         break;
+
                     case 3:
                         currentSnapshot.jx = retVal;
 
@@ -675,6 +683,7 @@ namespace EpPathFinding.cs
                         newSnapshot.stage = 0;
                         stack.Push(newSnapshot);
                         break;
+
                     case 4:
                         currentSnapshot.jy = retVal;
                         if (currentSnapshot.jx != null || currentSnapshot.jy != null)
@@ -702,8 +711,8 @@ namespace EpPathFinding.cs
             }
 
             return retVal;
-
         }
+
         private static GridPos jump(JumpPointParam iParam, int iX, int iY, int iPx, int iPy)
         {
             if (!iParam.SearchGrid.IsWalkableAt(iX, iY))
@@ -714,11 +723,11 @@ namespace EpPathFinding.cs
             {
                 return new GridPos(iX, iY);
             }
-        
+
             int tDx = iX - iPx;
             int tDy = iY - iPy;
-            GridPos jx=null;
-            GridPos jy=null;
+            GridPos jx = null;
+            GridPos jy = null;
             if (iParam.CrossCorner)
             {
                 // check for forced neighbors
@@ -735,7 +744,7 @@ namespace EpPathFinding.cs
                 else
                 {
                     if (tDx != 0)
-                    { 
+                    {
                         // moving along x
                         if ((iParam.SearchGrid.IsWalkableAt(iX + tDx, iY + 1) && !iParam.SearchGrid.IsWalkableAt(iX, iY + 1)) ||
                             (iParam.SearchGrid.IsWalkableAt(iX + tDx, iY - 1) && !iParam.SearchGrid.IsWalkableAt(iX, iY - 1)))
@@ -794,7 +803,7 @@ namespace EpPathFinding.cs
                 else
                 {
                     if (tDx != 0)
-                    { 
+                    {
                         // moving along x
                         if ((iParam.SearchGrid.IsWalkableAt(iX, iY + 1) && !iParam.SearchGrid.IsWalkableAt(iX - tDx, iY + 1)) ||
                             (iParam.SearchGrid.IsWalkableAt(iX, iY - 1) && !iParam.SearchGrid.IsWalkableAt(iX - tDx, iY - 1)))
@@ -811,7 +820,6 @@ namespace EpPathFinding.cs
                         }
                     }
                 }
-             
 
                 // when moving diagonally, must check for vertical/horizontal jump points
                 if (tDx != 0 && tDy != 0)
@@ -835,7 +843,6 @@ namespace EpPathFinding.cs
                     return null;
                 }
             }
-           
         }
 
         private static List<GridPos> findNeighbors(JumpPointParam iParam, Node iNode)
@@ -906,8 +913,6 @@ namespace EpPathFinding.cs
                                 tNeighbors.Add(new GridPos(tX + tDx, tY - tDy));
                             }
                         }
-
-
                     }
                     // search horizontally/vertically
                     else
@@ -943,7 +948,6 @@ namespace EpPathFinding.cs
                         {
                             if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY))
                             {
-
                                 tNeighbors.Add(new GridPos(tX + tDx, tY));
 
                                 if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY + 1) && !iParam.SearchGrid.IsWalkableAt(tX, tY + 1))
@@ -1000,8 +1004,6 @@ namespace EpPathFinding.cs
                             if (iParam.SearchGrid.IsWalkableAt(tX, tY - tDy) && iParam.SearchGrid.IsWalkableAt(tX + tDx, tY))
                                 tNeighbors.Add(new GridPos(tX + tDx, tY - tDy));
                         }
-
-
                     }
                     // search horizontally/vertically
                     else
@@ -1030,7 +1032,6 @@ namespace EpPathFinding.cs
                         {
                             if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY))
                             {
-
                                 tNeighbors.Add(new GridPos(tX + tDx, tY));
 
                                 if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY + 1) && iParam.SearchGrid.IsWalkableAt(tX, tY + 1))
@@ -1049,7 +1050,6 @@ namespace EpPathFinding.cs
                         }
                     }
                 }
-             
             }
             // return all neighbors
             else

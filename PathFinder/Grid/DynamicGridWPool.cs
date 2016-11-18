@@ -1,4 +1,4 @@
-﻿/*! 
+﻿/*!
 @file DynamicGridWPool.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/eppathfinding.cs>
@@ -35,19 +35,15 @@ THE SOFTWARE.
 An Interface for the DynamicGrid with Pool Class.
 
 */
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
-
-namespace EpPathFinding.cs
+namespace EpPathFinding
 {
     public class DynamicGridWPool : BaseGrid
     {
-         private bool m_notSet;
-         private NodePool m_nodePool;
+        private bool m_notSet;
+        private NodePool m_nodePool;
 
         public override int width
         {
@@ -59,7 +55,6 @@ namespace EpPathFinding.cs
             }
             protected set
             {
-
             }
         }
 
@@ -73,7 +68,6 @@ namespace EpPathFinding.cs
             }
             protected set
             {
-
             }
         }
 
@@ -110,7 +104,7 @@ namespace EpPathFinding.cs
 
         private void setBoundingBox()
         {
-              foreach (KeyValuePair<GridPos, Node> pair in m_nodePool.Nodes)
+            foreach (KeyValuePair<GridPos, Node> pair in m_nodePool.Nodes)
             {
                 if (pair.Key.x < m_gridRect.minX || m_notSet)
                     m_gridRect.minX = pair.Key.x;
@@ -145,7 +139,6 @@ namespace EpPathFinding.cs
             {
                 if (iX == m_gridRect.minX || iX == m_gridRect.maxX || iY == m_gridRect.minY || iY == m_gridRect.maxY)
                     m_notSet = true;
-                
             }
             return true;
         }
@@ -157,14 +150,13 @@ namespace EpPathFinding.cs
 
         public override bool IsWalkableAt(GridPos iPos)
         {
-            return  m_nodePool.Nodes.ContainsKey(iPos);
+            return m_nodePool.Nodes.ContainsKey(iPos);
         }
 
         public override bool SetWalkableAt(GridPos iPos, bool iWalkable)
         {
             return SetWalkableAt(iPos.x, iPos.y, iWalkable);
         }
-
 
         public override void Reset()
         {
@@ -180,5 +172,4 @@ namespace EpPathFinding.cs
             return tNewGrid;
         }
     }
-
 }

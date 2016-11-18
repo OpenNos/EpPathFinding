@@ -1,4 +1,4 @@
-/*! 
+/*!
 @file NodePool.cs
 @author Woong Gyu La a.k.a Chris. <juhgiyo@gmail.com>
 		<http://github.com/juhgiyo/eppathfinding.cs>
@@ -35,13 +35,10 @@ THE SOFTWARE.
 An Interface for the NodePool Class.
 
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
-namespace EpPathFinding.cs
+using System.Collections.Generic;
+
+namespace EpPathFinding
 {
     public class NodePool
     {
@@ -56,6 +53,7 @@ namespace EpPathFinding.cs
         {
             get { return m_nodes; }
         }
+
         public Node GetNode(int iX, int iY)
         {
             GridPos pos = new GridPos(iX, iY);
@@ -94,7 +92,6 @@ namespace EpPathFinding.cs
                 {
                     removeNode(iPos);
                 }
-
             }
             else
             {
@@ -104,11 +101,13 @@ namespace EpPathFinding.cs
             }
             return null;
         }
+
         protected void removeNode(int iX, int iY)
         {
             GridPos pos = new GridPos(iX, iY);
             removeNode(pos);
         }
+
         protected void removeNode(GridPos iPos)
         {
             if (m_nodes.ContainsKey(iPos))
